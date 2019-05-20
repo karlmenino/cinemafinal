@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des films</title>
+
+    </div>
+</head>
+
+<body>
+    <div th:each="usere:${listuser}">
+        <div th:id="${usere.id}">
+                    <a th:text="${usere.login}" th:href="@{'/admin/pass/'+${usere.login}}">nom de l'user</a>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

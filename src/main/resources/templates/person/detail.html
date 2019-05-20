@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment/header.html::header">
+</head>
+<body>
+<div th:replace="fragment/header.html::nav"></div>
+<div class="row">
+    <div class="col-md-4">
+        <img alt="Bootstrap Image Preview" th:src="'/person/image/'+${person.photoPath}" height="300" width="300" />
+    </div>
+    <div class="col-md-4">
+        <h2 th:text="${person.nom}">
+            Heading
+        </h2>
+        </p>
+        <p th:text="'prenom : '+${person.prenom}">
+            prenom de l'acteur
+        </p>
+        <p th:text="'date de naissance : '+${person.naissance}">
+            naissance
+        </p>
+    </div>
+    <div class="col-md-4">
+        <a th:href="'/person/mod/'+${person.id}" >edit</a>
+        <a th:href="'/person/delete/'+${person.id}"  onClick="javascript:return confirm('Voulez-vous vraiment supprimer cet élément ?')">delete</a></td>
+    </div>
+</div>
+    <div th:each="jeu:${person.getPosts()}"  style="display:block;">
+        <div class="row">
+        <div class="col-md-6">
+            <img alt="Bootstrap Image Preview" th:src="'/film/affiche/'+${jeu.film.image_path}" height="150" width="150" />
+        </div>
+        <div class="col-md-6">
+            <h2  th:text="'nom : '+${jeu.film.title}">
+                heading
+            </h2>
+            <p th:text="'A jouer le '+${jeu.rank}+'er role : '+${jeu.name}">
+                nom du role
+            </p>
+            <h3>
+                Résumé :
+            </h3>
+            <p th:text="${jeu.film.summary}">
+                prenom de l'acteur
+            </p>
+            <div th:each="genre:${jeu.film.getGenreFilm()}">
+                <p th:text="${genre.name}"> genre</p>
+            </div>
+            <p>
+                <a class="btn" th:href="@{'/film/detail/'+${jeu.film.id}}">View details »</a>
+            </p>
+        </div>
+    </div>
+    </div>
+
+    </div>
+</div>
+<div th:replace="fragment/footer.html::footer"></div>
+</body>
+</html>

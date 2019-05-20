@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--declaration d'un espace de nommage th dans lequ'elle est stocké thymeleaf-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment/header.html::header">
+</head>
+<body>
+<div th:replace="fragment/header.html::nav"></div>
+<form action="#" th:action="@{/film/add}" th:object="${film}" enctype="multipart/form-data" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <input type="hidden" th:field="*{image_path}"/>
+    <p>Titre : <input type="text" th:field="*{title}"/></p>
+    <p>résumé : <input type="text" th:field="*{summary}"/></p>
+    <p>note : <input type="text" th:field="*{rating}"/></p>
+    <p>release : <input type="date" th:field="*{release}"/></p>
+    <p>Réalisateur :
+        <select th:field="*{film_director}">
+            <option th:each="nom: ${persons}" th:value="${nom.id}" th:text="${nom.getNom()}">
+        </select>
+    </p>
+    <p>genre :
+        <select multiple th:field="*{genreFilm}">
+            <option th:each="genre: ${genres}" th:value="${genre.id}" th:text="${genre.name}" >
+        </select>
+    </p>
+    <p>Affiche : <input type="file" name="poster"/> <span th:text="*{image_path}">Fichier photo</span></p>
+
+    <input type="submit" value="Valider" />
+</form>
+<th:block th:if="${roles != null}">
+    <form action="#" th:action="@{/role/add}" th:object="${role}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <select th:field="*{film}">
+            <option th:value="${film.id}" th:text="${film.title}" selected></option>
+        </select>
+        <p>nom du role : <input type="text" th:field="*{name}"/></p>
+        <p>rang : <input type="text" th:field="*{rank}"/></p>
+        <p>acteur :
+            <select th:field="*{person}">
+                <option th:each="nom: ${persons}" th:value="${nom.id}" th:text="${nom.getNom()}">
+            </select>
+        </p>
+        <input type="submit" value="Valider" />
+    </form>
+    <div class="container-fluid">
+        <div class="row">
+    <div th:each="test:${roles}" class="row">
+        <div class="col-md-6">
+            <h2 th:text="${test.getRank()}+'er role : '+${test.getName()}">
+                Heading
+            </h2>
+            <p th:text="'nom : '+${test.person.nom}">
+                nom de l'acteur
+            </p>
+            <p th:text="'prenom : '+${test.person.prenom}">
+                prenom de l'acteur
+            </p>
+
+        </div>
+        <div class="col-md-6">
+            <a th:href="'/role/delete/'+${test.id}"  onClick="javascript:return confirm('Voulez-vous vraiment supprimer cet élément ?')">delete</a></td>
+        </div>
+    </div>
+        </div>
+
+
+
+</th:block>
+<div th:replace="fragment/footer.html::footer"></div>
+</body>
+
+</html>
+

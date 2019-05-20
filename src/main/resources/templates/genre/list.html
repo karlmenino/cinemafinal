@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--declaration d'un espace de nommage th dans lequ'elle est stocké thymeleaf-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment/header.html::header">
+</head>
+<body>
+<div th:replace="fragment/header.html::nav"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div  class="col-md-12">
+
+            <div th:each="genre:${genres}" class="row">
+                <div class="col-md-4">
+                    <h2 th:text="${genre.name}">
+                        Heading
+                    </h2>
+            </div>
+                <div class="col-md-4"  >
+                    <div th:each="film:${genre.getListFilm()}">
+                    <h2 th:text="${film.getTitle()}">
+                        Heading
+                    </h2>
+                    <p>
+                        <a class="btn" th:href="@{'/film/detail/'+${film.id}}">View details</a>
+                    </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <a th:href="'/genre/delete/'+${genre.id}"  onClick="javascript:return confirm('Voulez-vous vraiment supprimer cet élément ?')">delete</a></td>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragment/footer.html::footer"></div>
+</body>
+</html>
